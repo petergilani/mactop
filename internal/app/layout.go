@@ -135,17 +135,18 @@ func setLayoutGrid(layoutName string) {
 			),
 		)
 	case LayoutCompact:
+		// Modified layout to swap GPU and Memory positions (5/15 layout)
 		grid.Set(
 			ui.NewRow(2.0/8,
 				ui.NewCol(1.0/4, cpuGauge),
+				ui.NewCol(1.0/4, memoryGauge), // GPU moved to position 3, Memory to position 2
 				ui.NewCol(1.0/4, gpuGauge),
-				ui.NewCol(1.0/4, memoryGauge),
-				ui.NewCol(1.0/4, aneGauge),
+				ui.NewCol(1.0/4, sparklineGroup),
 			),
 			ui.NewRow(2.0/8,
 				ui.NewCol(1.0/3, modelText),
 				ui.NewCol(1.0/3, NetworkInfo),
-				ui.NewCol(1.0/3, PowerChart),
+				ui.NewCol(1.0/3, aneGauge),
 			),
 			ui.NewRow(2.0/4,
 				ui.NewCol(1.0, processList),
@@ -255,6 +256,7 @@ func setLayoutGrid(layoutName string) {
 			),
 		)
 	default: // LayoutDefault
+		// Modified default layout - removed sparkline section and added power values to CPU and GPU
 		grid.Set(
 			ui.NewRow(1.0/4,
 				ui.NewCol(1.0/2, cpuGauge),
@@ -263,10 +265,7 @@ func setLayoutGrid(layoutName string) {
 			ui.NewRow(2.0/4,
 				ui.NewCol(1.0/2,
 					ui.NewRow(1.0/2, aneGauge),
-					ui.NewRow(1.0/2,
-						ui.NewCol(1.0/2, PowerChart),
-						ui.NewCol(1.0/2, sparklineGroup),
-					),
+					ui.NewRow(1.0/2, PowerChart),
 				),
 				ui.NewCol(1.0/2,
 					ui.NewRow(1.0/2, memoryGauge),
