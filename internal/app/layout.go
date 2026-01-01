@@ -1,6 +1,7 @@
 package app
 
 import (
+
 	"fmt"
 
 	ui "github.com/metaspartan/gotui/v5"
@@ -59,11 +60,9 @@ func applyLayout(layoutName string) {
 	if mainBlock != nil {
 		mainBlock.SetRect(0, 0, termWidth, termHeight)
 		mainBlock.TitleBottomLeft = fmt.Sprintf(" %d/%d layout (%s) ", currentLayoutNum+1, totalLayouts, currentColorName)
-		if termWidth < 93 {
-			mainBlock.TitleBottom = ""
-		} else {
-			mainBlock.TitleBottom = " Info: i | Layout: l | Color: c | BG: b | Exit: q "
-		}
+		mainBlock.TitleBottom = " Info: i | Layout: l | Color: c | BG: b | Exit: q "
+		mainBlock.TitleBottomRight = fmt.Sprintf(" -/+ %dms ", updateInterval)
+		mainBlock.TitleBottomAlignment = ui.AlignCenter
 	}
 	grid = ui.NewGrid()
 
@@ -73,6 +72,8 @@ func applyLayout(layoutName string) {
 		grid.SetRect(1, 1, termWidth-1, termHeight-1)
 	}
 }
+
+
 
 func setLayoutGrid(layoutName string) {
 	switch layoutName {

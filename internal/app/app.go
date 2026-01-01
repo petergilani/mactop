@@ -96,11 +96,10 @@ func setupUI() {
 	mainBlock = ui.NewBlock()
 	mainBlock.BorderRounded = true
 	thermalStr, _ := getThermalStateString()
-mainBlock.TitleRight = fmt.Sprintf(" %s | %s ", thermalStr, version)
-
-	mainBlock.Title = " mactop "
+	mainBlock.TitleLeft = " mactop "
+	mainBlock.Title = ""
 	mainBlock.TitleRight = fmt.Sprintf(" %s | %s ", thermalStr, version)
-	mainBlock.TitleAlignment = ui.AlignLeft
+	mainBlock.TitleAlignment = ui.AlignCenter
 	mainBlock.TitleBottomLeft = fmt.Sprintf(" %d/%d layout (%s) ", currentLayoutNum, totalLayouts, currentColorName)
 	mainBlock.TitleBottom = " Info: i | Layout: l | Color: c | BG: b | Exit: q "
 	mainBlock.TitleBottomAlignment = ui.AlignCenter
@@ -172,6 +171,7 @@ mainBlock.TitleRight = fmt.Sprintf(" %s | %s ", thermalStr, version)
 		// Callback logic
 	})
 }
+
 
 func updateModelText() {
 	appleSiliconModel := getSOCInfo()
@@ -786,7 +786,25 @@ func updateNetDiskUI(netdiskMetrics NetDiskMetrics) {
 	}
 	NetworkInfo.Text = strings.TrimSuffix(sb.String(), "\n")
 
+    // Update the title line for compact layout (layout 5/15) to show net values centered with a single space on each side
+    if currentLayoutNum+1 == 5 { // layout number is 1-indexed
+        netTitle := fmt.Sprintf("↑%s/s ↓%s/s", netOut, netIn)
+        // Surround with a single space on each side
+        mainBlock.Title = fmt.Sprintf(" %s ", netTitle)
+        mainBlock.TitleAlignment = ui.AlignCenter
+    } else {
+        // Ensure no centered title for other layouts
+        mainBlock.Title = ""
+        mainBlock.TitleAlignment = ui.AlignCenter
+    }
 }
+
+
+
+
+
+
+
 
 func updateTBNetUI(tbStats []ThunderboltNetStats) {
 	if tbStats == nil {
