@@ -96,7 +96,7 @@ func setupUI() {
 	mainBlock = ui.NewBlock()
 	mainBlock.BorderRounded = true
 	thermalStr, _ := getThermalStateString()
-	mainBlock.TitleLeft = fmt.Sprintf(" mactop | R %s/s W %s/s ", formatBytes(lastNetDiskMetrics.ReadKBytesPerSec*1024, "auto"), formatBytes(lastNetDiskMetrics.WriteKBytesPerSec*1024, "auto"))
+	mainBlock.TitleLeft = fmt.Sprintf(" mactop R %s W %s ", formatBytes(lastNetDiskMetrics.ReadKBytesPerSec*1024, "auto"), formatBytes(lastNetDiskMetrics.WriteKBytesPerSec*1024, "auto"))
 	mainBlock.Title = ""
 	freeSpace := ""
 	for _, v := range getVolumes() {
@@ -665,6 +665,7 @@ func updateTotalPowerChart(watts float64) {
 sparklineGroup.TitleAlignment = ui.AlignCenter
 	thermalStr, _ := getThermalStateString()
 	freeSpace := ""
+	mainBlock.TitleLeft = fmt.Sprintf(" mactop R %s W %s ", formatBytes(lastNetDiskMetrics.ReadKBytesPerSec*1024, "auto"), formatBytes(lastNetDiskMetrics.WriteKBytesPerSec*1024, "auto"))
 	for _, v := range getVolumes() {
 		if v.Name == "Mac HD" {
 			freeSpace = fmt.Sprintf("%s free", formatBytes(v.Available*1e9, "auto"))
