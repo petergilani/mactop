@@ -98,7 +98,14 @@ func setupUI() {
 	thermalStr, _ := getThermalStateString()
 	mainBlock.TitleLeft = fmt.Sprintf(" mactop | R %s/s W %s/s ", formatBytes(lastNetDiskMetrics.ReadKBytesPerSec*1024, "auto"), formatBytes(lastNetDiskMetrics.WriteKBytesPerSec*1024, "auto"))
 	mainBlock.Title = ""
-	mainBlock.TitleRight = fmt.Sprintf(" %s | %s ", thermalStr, version)
+	freeSpace := ""
+	for _, v := range getVolumes() {
+		if v.Name == "Mac HD" {
+			freeSpace = fmt.Sprintf("%s free", formatBytes(v.Available*1e9, "auto"))
+			break
+		}
+	}
+	mainBlock.TitleRight = fmt.Sprintf(" %s | %s | %s ", thermalStr, freeSpace, version)
 	mainBlock.TitleAlignment = ui.AlignCenter
 	mainBlock.TitleBottomLeft = fmt.Sprintf(" %d/%d layout (%s) ", currentLayoutNum, totalLayouts, currentColorName)
 	mainBlock.TitleBottom = " Info: i | Layout: l | Color: c | BG: b | Exit: q "
@@ -657,7 +664,14 @@ func updateTotalPowerChart(watts float64) {
 	sparklineGroup.Title = fmt.Sprintf("%.2f W Total | %.2f W Max", watts, maxPowerSeen)
 sparklineGroup.TitleAlignment = ui.AlignCenter
 	thermalStr, _ := getThermalStateString()
-mainBlock.TitleRight = fmt.Sprintf(" %s | %s ", thermalStr, version)
+	freeSpace := ""
+	for _, v := range getVolumes() {
+		if v.Name == "Mac HD" {
+			freeSpace = fmt.Sprintf("%s free", formatBytes(v.Available*1e9, "auto"))
+			break
+		}
+	}
+	mainBlock.TitleRight = fmt.Sprintf(" %s | %s | %s ", thermalStr, freeSpace, version)
 	sparkline.Title = fmt.Sprintf("Avg: %.2f W | %s", avgWatts, thermalStr)
 
 	// Update power history StepChart - use terminal width for reliable slicing
