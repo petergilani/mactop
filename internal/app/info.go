@@ -80,7 +80,11 @@ func buildInfoLines(themeColor string) []string {
 			used := formatBytes(v.Used*1e9, diskUnit)
 			total := formatBytes(v.Total*1e9, diskUnit)
 			avail := formatBytes(v.Available*1e9, diskUnit)
-			infoLines = append(infoLines, formatLine(v.Name, fmt.Sprintf("%s / %s (%s free)", used, total, avail)))
+			if v.Name == "Mac HD" {
+				infoLines = append(infoLines, formatLine(v.Name, fmt.Sprintf("%s / %s (%s)", used, total, macHDFreeSpace)))
+			} else {
+				infoLines = append(infoLines, formatLine(v.Name, fmt.Sprintf("%s / %s (%s free)", used, total, avail)))
+			}
 		}
 	}
 

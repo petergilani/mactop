@@ -86,6 +86,7 @@ var (
 	currentColorName   string
 	lastCPUMetrics     CPUMetrics
 	lastGPUMetrics     GPUMetrics
+	macHDFreeSpace string // new global for free space display
 	lastNetDiskMetrics NetDiskMetrics
 	lastActiveLayout   string = "default"
 	// Per-process GPU time tracking

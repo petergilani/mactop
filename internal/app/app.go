@@ -105,6 +105,7 @@ func setupUI() {
 			break
 		}
 	}
+	macHDFreeSpace = freeSpace
 	mainBlock.TitleRight = fmt.Sprintf(" %s | %s | %s ", thermalStr, freeSpace, version)
 	mainBlock.TitleAlignment = ui.AlignCenter
 	mainBlock.TitleBottomLeft = fmt.Sprintf(" %d/%d layout (%s) ", currentLayoutNum, totalLayouts, currentColorName)
@@ -672,6 +673,7 @@ sparklineGroup.TitleAlignment = ui.AlignCenter
 			break
 		}
 	}
+	macHDFreeSpace = freeSpace
 	mainBlock.TitleRight = fmt.Sprintf(" %s | %s | %s ", thermalStr, freeSpace, version)
 	sparkline.Title = fmt.Sprintf("Avg: %.2f W | %s", avgWatts, thermalStr)
 
