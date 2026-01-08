@@ -96,7 +96,7 @@ func setupUI() {
 	mainBlock = ui.NewBlock()
 	mainBlock.BorderRounded = true
 	thermalStr, _ := getThermalStateString()
-	mainBlock.TitleLeft = " mactop "
+	mainBlock.TitleLeft = fmt.Sprintf(" mactop | R %s/s W %s/s ", formatBytes(lastNetDiskMetrics.ReadKBytesPerSec*1024, "auto"), formatBytes(lastNetDiskMetrics.WriteKBytesPerSec*1024, "auto"))
 	mainBlock.Title = ""
 	mainBlock.TitleRight = fmt.Sprintf(" %s | %s ", thermalStr, version)
 	mainBlock.TitleAlignment = ui.AlignCenter
